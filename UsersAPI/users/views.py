@@ -30,22 +30,14 @@ class Users(APIView):
         :return:
         """
         username = request.query_params.get("username", None)
-
         user_profile_obj = UsersData.objects.filter(status__in=["Active", "Inactive"]).order_by("id")
-
         if username is not None:
-            print(username)
             user_profile_obj = user_profile_obj.filter(full_name__contains=username)
-            print(user_profile_obj)
-            # import pdb;
-            # pdb.set_trace();
         serializer = UsersSerializer(user_profile_obj, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
     def post(self,request):
         """
-
         :param request:{"full_name":"kush bhargava","emp_code":2,"email":"bhargavakush93@gmail.com"}
         :return: return user data
         """

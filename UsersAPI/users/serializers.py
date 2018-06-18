@@ -26,7 +26,6 @@ class CreateUsersSerializer(serializers.ModelSerializer):
             user_data.emp_code = validated_data['emp_code']
             user_data.save()
         else:
-            print('hy')
             user_data = UsersData.objects.create(full_name=validated_data['full_name'].strip(),email =validated_data['email'].lower(),emp_code = validated_data['emp_code'])
 
         return user_data
