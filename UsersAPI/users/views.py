@@ -29,12 +29,14 @@ class Users(APIView):
         :param kwargs: ?username="kush"
         :return:
         """
-        username = request.query_params.get('username')
+        username = request.query_params.get("username", None)
 
         user_profile_obj = UsersData.objects.filter(status__in=["Active", "Inactive"]).order_by("id")
-        print(username)
+
         if username is not None:
+            print(username)
             user_profile_obj = user_profile_obj.filter(full_name__contains=username)
+            print(user_profile_obj)
             # import pdb;
             # pdb.set_trace();
         serializer = UsersSerializer(user_profile_obj, many=True)

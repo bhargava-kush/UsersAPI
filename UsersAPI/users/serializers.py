@@ -20,12 +20,13 @@ class CreateUsersSerializer(serializers.ModelSerializer):
         fields = ['id','full_name','emp_code', 'email', 'status', 'crd', 'upd']
 
     def create(self, validated_data):
-        user_data = UsersData.objects.filter(email =validated_data['email'])
         if UsersData.objects.filter(email =validated_data['email']).exists():
+            user_data = UsersData.objects.get(email__iexact=validated_data['email'].strip())
             user_data.full_name = validated_data['full_name'].strip()
             user_data.emp_code = validated_data['emp_code']
             user_data.save()
         else:
+            print('hy')
             user_data = UsersData.objects.create(full_name=validated_data['full_name'].strip(),email =validated_data['email'].lower(),emp_code = validated_data['emp_code'])
 
         return user_data
