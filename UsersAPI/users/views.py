@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from rest_framework import generics
-
 from .models import UsersData
 from rest_framework.views import APIView
 from django.http import Http404
@@ -8,7 +6,6 @@ from .serializers import UsersSerializer,CreateUsersSerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import generics
 # Create your views here.
 
 class Users(APIView):
@@ -26,7 +23,7 @@ class Users(APIView):
         """
         search username
         :param request:
-        :param kwargs: ?username="kush"
+        :param kwargs: ?username=kush
         :return:
         """
         username = request.query_params.get("username", None)
